@@ -1,16 +1,56 @@
-# 这是一个示例 Python 脚本。
+from fastapi import FastAPI
+import pandas as pd
+import psycopg2
 
-# 按 Shift+F10 执行或将其替换为您的代码。
-# 按 双击 Shift 在所有地方搜索类、文件、工具窗口、操作和设置。
+app = FastAPI()
+
+# 数据库连接函数
+def get_conn():
+
+    conn = psycopg2.connect(
+        host="10.0.0.133",
+        port=5432,
+        user="root",
+        password="Gauss@123",
+        database="finance"
+    )
+
+    return conn
 
 
-def print_hi(name):
-    # 在下面的代码行中使用断点来调试脚本。
-    print(f'Hi, {name}')  # 按 Ctrl+F8 切换断点。
+# 首页测试
+@app.get("/")
+def home():
+
+    return {
+        "msg": "FastAPI openGauss OK"
+    }
 
 
-# 按装订区域中的绿色按钮以运行脚本。
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# 查询客户接口
+@app.get("/client")
+def get_client():
 
-# 访问 https://www.jetbrains.com/help/pycharm/ 获取 PyCharm 帮助
+    conn = get_conn()
+
+    sql = """
+    select *
+    from client
+    limit 5
+    """
+
+    # SQL结果导入Pandas
+    df = pd.read_sql(sql, conn)
+
+    conn.close()
+
+    # Pandas分析
+    row_count = len(df)
+
+    # 转JSON
+    result = {
+        "total": row_count,
+        "data": df.to_dict(orient="records")
+    }
+
+    return result
