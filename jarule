@@ -1,0 +1,14 @@
+this is a test! can u see me?
+
+GITHUB远程仓库地址是：https://github.com/lib838841-sketch/fastapi_db_api
+
+GITHUB本地仓库地址是：D:\fastapi_db_api
+激活虚拟环境命令是：(base) PS D:\fastapi_db_api> .\venv\Scripts\Activate.ps1
+
+GITHUB远程仓库的服务器地址是：10.0.0.128   路径是：(venv) j@ubuntu:/j/first_project/fastapi_db_api$ pwd
+/j/first_project/fastapi_db_api
+
+j@ubuntu:/j/first_project/fastapi_db_api$ source venv/bin/activate
+(venv) j@ubuntu:/j/first_project/fastapi_db_api$ which python3
+/j/first_project/fastapi_db_api/venv/bin/python3
+在Ubuntu服务器上，使用python3 运行脚本。

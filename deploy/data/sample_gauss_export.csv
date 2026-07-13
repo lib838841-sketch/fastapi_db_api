@@ -1,0 +1,5 @@
+id,description,db,table,risk,timestamp
+ins_001,"Checkpoint 发生频繁，平均间隔 30 秒，有大量小事务导致 WAL 写入频繁。建议检查应用提交频率并合并事务；考虑调整 checkpoint_timeout 和 checkpoint_completion_target。",gaussdb_prod,orders,MEDIUM,2026-05-20T10:12:00
+ins_002,"shared_buffers 当前设置为 256MB。文档不建议动态修改该参数，因为修改可能需要重启并引起内存分配变化导致性能抖动。",gaussdb_prod,,LOW,2026-05-19T09:00:00
+ins_003,"SQL: SELECT * FROM user WHERE created_at > '2026-01-01' 未使用索引，表扫描导致响应慢。EXPLAIN 显示 cost 很高。建议增加索引或改写查询。",gaussdb_prod,user,HIGH,2026-05-18T14:30:00
+
