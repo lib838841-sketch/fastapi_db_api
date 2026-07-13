@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  # Chroma is used via Python persist_directory in this example. If you prefer a Chroma server container, replace this with an appropriate image.
+  # chroma:
+  #   image: chromadb/chroma:latest
+  #   volumes:
+  #     - ./chroma_db:/data
+  #   ports:
+  #     - 8000:8000
+
+  # FastAPI QA service can be containerized if desired. This compose file is a minimal template/placeholder.
+  qa-service:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: bash -c "pip install -r requirements.txt && uvicorn app.qa_proxy:app --host 0.0.0.0 --port 9000"
+    ports:
+      - 9000:9000
+    environment:
+      - OLLAMA_URL=${OLLAMA_URL}
+      - CHROMA_DIR=/app/deploy/chroma_db
+
+volumes:
+  chroma_db:
+
